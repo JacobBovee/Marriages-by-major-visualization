@@ -1,4 +1,5 @@
 import * as React from 'react'
+import '../styles/nlp.css'
 
 export default class NlpField extends React.Component {
     public render() {

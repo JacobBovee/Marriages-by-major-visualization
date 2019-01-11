@@ -1,0 +1,21 @@
+.nlp-field {
+    background-color: rgb(43, 55, 64);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex: 0.5;
+}
+
+input {
+    width: 85%;
+    height: 65%;
+    border-radius: 5px;
+    border: 1px rgba(0, 0, 0, 0.6) solid;
+    outline: none;
+    font-size: 18px;
+    font-family: 'Teko', sans-serif;
+    letter-spacing: 1px;
+}
+input::placeholder {
+    color: #000;
+}

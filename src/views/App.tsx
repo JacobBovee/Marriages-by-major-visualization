@@ -1,10 +1,12 @@
 import { DSVRowArray } from 'd3'
 
 import * as React from 'react'
+import Controls from '../components/Controls'
 import DataContainer from '../components/DataContainer'
 import MajorSelection from '../components/MajorSelection'
 import NlpField from '../components/NlpField'
 import DataHelper from '../helpers/DataHelper'
+import '../styles/app.css'
 
 interface IState {
   majors: string[],
@@ -36,9 +38,14 @@ class App extends React.Component {
     if (majors.length > 0) {
       return (
         <div className="App">
-          <NlpField />
-          <DataContainer />
-          <MajorSelection majors={majors} />
+          <div className='controls'>
+            <Controls />
+            <MajorSelection majors={majors} />
+          </div>
+          <div className='visualization'>
+            <NlpField />
+            <DataContainer />
+          </div>
         </div>
       )
     }

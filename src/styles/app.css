@@ -1,0 +1,30 @@
+html, body, #root {
+    background-color: #000;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+    font-family: 'Teko', sans-serif;
+    margin: 0;
+}
+
+.App {
+    display: flex;
+    flex-flow: row;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+.controls {
+    display: flex;
+    flex: 1.5;
+}
+
+.visualization {
+    display: flex;
+    flex: 3;
+    background-color: white;
+    flex-flow: column;
+}

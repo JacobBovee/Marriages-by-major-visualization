@@ -1,0 +1,25 @@
+.major-selection {
+    display: flex;
+    flex: 0.7;
+    background-color:  rgb(35, 43, 51);
+    overflow-y: scroll;
+}
+.major-selection ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    margin: 0;
+}
+
+.major-selection ul li {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    border-bottom: 1px rgba(255, 255, 255, 0.5) solid;
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
