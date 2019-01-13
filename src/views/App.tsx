@@ -5,12 +5,12 @@ import Controls from '../components/Controls'
 import DataContainer from '../components/DataContainer'
 import MajorSelection from '../components/MajorSelection'
 import NlpField from '../components/NlpField'
-import DataHelper from '../helpers/DataHelper'
 import '../styles/app.css'
+import DataUtils from '../utils/DataUtils'
 
 interface IState {
-  majors: string[],
-  data: string[] | DSVRowArray,
+  majors: string[]
+  data: string[] | DSVRowArray
 }
 
 
@@ -26,14 +26,14 @@ class App extends React.Component {
   }
 
   public componentDidMount() {
-    Promise.resolve(DataHelper.fetchData())
+    Promise.resolve(DataUtils.fetchData())
     .then(data => {
       this.setState(data)
     })
   }
 
   public render() {
-    const { majors } = this.state
+    const { majors, data } = this.state
 
     if (majors.length > 0) {
       return (
@@ -44,7 +44,9 @@ class App extends React.Component {
           </div>
           <div className='visualization'>
             <NlpField />
-            <DataContainer />
+            <DataContainer
+              data={data}
+            />
           </div>
         </div>
       )
