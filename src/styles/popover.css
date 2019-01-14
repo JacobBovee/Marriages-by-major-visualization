@@ -1,0 +1,11 @@
+.popover {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 80%;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+}

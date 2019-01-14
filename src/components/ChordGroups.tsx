@@ -19,7 +19,6 @@ export default class ChordGroups extends React.Component<IProps> {
 
     public render() {
         const { arc, chords, color, id, setMouseOverGroup, labelColors, groupLabels, innerRadius } = this.props
-        console.log(this.props)
 
         return (
             <g className='groups'>
@@ -38,7 +37,7 @@ export default class ChordGroups extends React.Component<IProps> {
                             dy={'.25em'}
                             transform={`
                                 rotate(${this.getAngle(group) * 180 / Math.PI - 90 })
-                                translate(${innerRadius + 26}) ${this.getAngle(group) > Math.PI ? "rotate(180)" : ""}`}
+                                translate(${innerRadius + 36}) ${this.getAngle(group) > Math.PI ? "rotate(180)" : ""}`}
                             fill={labelColors.length === 1 ? labelColors[0] : labelColors[groupIndex]}
                             style={{
                                 textAnchor: this.getAnchor(group)

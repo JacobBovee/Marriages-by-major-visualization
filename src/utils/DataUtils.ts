@@ -21,14 +21,11 @@ class DataUtils {
     }
 
     public generateMatrix = (data: any) => {
-        console.log(data)
         const matrix = data.map((row: any) => {
             return Object.keys(row).map(key => {
                 return parseInt(row[key].replace(',', ''), 10)
             }).slice(1, -1)
         }).slice(0, -1)
-
-        console.log(matrix)
 
         return matrix
     }
@@ -36,8 +33,6 @@ class DataUtils {
     public getChord(width: number, height: number, matrix: number[][]) {
         const outerRadius = Math.min(width, height) * 0.5 - 40
         const innerRadius = outerRadius - 30
-
-        console.log(matrix)
         
         const d3Chord = chord()
             .padAngle(0.04)

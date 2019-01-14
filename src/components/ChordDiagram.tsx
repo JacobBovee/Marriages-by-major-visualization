@@ -73,7 +73,7 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
             const { arc, chords, color, labelColors, ribbon, innerRadius } = this.chord
 
             return (
-                <svg width={width} height={height} className='chord' onMouseOut={this.setMouseOverGroup(null)}>
+                <svg width={width} height={height} className='chord' onMouseOut={this.setMouseOverGroup(null)} style={{ overflow: 'visible' }}>
                     <g transform={`translate(${width/2},${height/2})`}>
                         <ChordGroups
                             id={'chordGroups'}
