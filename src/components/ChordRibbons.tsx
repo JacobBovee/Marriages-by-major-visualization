@@ -40,8 +40,8 @@ export default class ChordRibbons extends React.Component<IProps, IState> {
     }
 
     public mouseOverRibbon = (ribbon: number[] | null) => (e: React.MouseEvent) => {
-        this.setSelectedRibbon(ribbon)
         const open = ribbon === null ? false : true
+        this.setSelectedRibbon(ribbon)
         this.updatePopover(e, open)
         this.mouseOverRibbon = this.mouseOverRibbon.bind(this)
     }
@@ -73,7 +73,7 @@ export default class ChordRibbons extends React.Component<IProps, IState> {
         return (
             <g
                 className='ribbons'
-                fillOpacity='0.6'
+                fillOpacity='0.8'
             >
                 <Popover x={x} y={y} />
                 {chords.map((chord: any, chordIndex: number) => (
@@ -85,7 +85,7 @@ export default class ChordRibbons extends React.Component<IProps, IState> {
                         style={{
                             display: this.shouldDisplay(mouseOverGroup, chord.source.index, chord.target.index),
                         }}
-                        stroke={`${rgb(color(chord.target.index)).darker()}`}
+                        stroke={`${rgb(color(chord.target.index)).brighter()}`}
                         d={`${ribbon({source: chord.source, target: chord.target})}`}
                     />
                 ))}

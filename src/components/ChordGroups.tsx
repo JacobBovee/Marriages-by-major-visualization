@@ -30,7 +30,7 @@ export default class ChordGroups extends React.Component<IProps> {
                         <path
                             id={`${id}-group${groupIndex}`}
                             fill={`${color(groupIndex)}`}
-                            stroke={`${rgb(color(groupIndex)).darker()}`}
+                            stroke={`${rgb(color(groupIndex)).brighter()}`}
                             d={arc(group)}
                         />
                         <text
@@ -40,7 +40,8 @@ export default class ChordGroups extends React.Component<IProps> {
                                 translate(${innerRadius + 36}) ${this.getAngle(group) > Math.PI ? "rotate(180)" : ""}`}
                             fill={labelColors.length === 1 ? labelColors[0] : labelColors[groupIndex]}
                             style={{
-                                textAnchor: this.getAnchor(group)
+                                letterSpacing: '1px',
+                                textAnchor: this.getAnchor(group),
                             }}
                         >
                             {groupLabels[groupIndex]}

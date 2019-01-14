@@ -1,4 +1,5 @@
 import * as React from 'react'
+import '../styles/chord.css'
 import DataUtils from '../utils/DataUtils'
 import ChordGroups from './ChordGroups'
 import ChordRibbons from './ChordRibbons'
@@ -36,7 +37,7 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
         chords: null,
         color: null,
         innerRadius: 0,
-        labelColors: ['#000000'],
+        labelColors: ['#fff'],
         ribbon: null,
     }
 

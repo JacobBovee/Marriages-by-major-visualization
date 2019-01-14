@@ -14,10 +14,10 @@
 .major-selection ul li {
     color: rgba(255, 255, 255, 0.8);
     font-size: 18px;
-    border-bottom: 1px rgba(255, 255, 255, 0.5) solid;
+    border-bottom: 1px rgba(255, 255, 255, 0.2) solid;
     width: 100%;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 23px;
+    padding-bottom: 23px;
     width: 100%;
     text-align: center;
     cursor: pointer;
