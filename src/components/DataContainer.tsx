@@ -4,6 +4,7 @@ import ChordDiagram from './ChordDiagram'
 
 interface IProps {
     data: any
+    selectionState: any
 }
 
 interface IState {
@@ -41,7 +42,7 @@ export default class DataContainer extends React.Component<IProps, IState> {
     }
 
     public render() {
-        const { data } = this.props
+        const { data, selectionState } = this.props
         const { height, width } = this.state
         
         return (
@@ -52,6 +53,7 @@ export default class DataContainer extends React.Component<IProps, IState> {
                     height={height}
                     width={width}
                     data={data}
+                    selectionState={selectionState}
                 />
             </div>
         )

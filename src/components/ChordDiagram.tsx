@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import * as React from 'react'
 import '../styles/chord.css'
 import DataUtils from '../utils/DataUtils'
@@ -8,10 +9,10 @@ interface IProps {
     width: number
     height: number
     data: any
+    selectionState: any
 }
 
 interface IState {
-    mouseOverGroup: any
     matrix: number[][]
     labels: string[]
 }
@@ -25,11 +26,11 @@ interface IChord {
     ribbon: any
 }
 
+@observer
 export default class ChordDiagram extends React.Component<IProps, IState> {
     public state = {
         labels: [],
         matrix: [[]],
-        mouseOverGroup: null,
     }
 
     public chord: IChord = {
@@ -39,11 +40,6 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
         innerRadius: 0,
         labelColors: ['#fff'],
         ribbon: null,
-    }
-
-    constructor(props: IProps) {
-        super(props)
-
     }
 
     public componentDidMount() {
@@ -57,14 +53,16 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
     }
 
     public setMouseOverGroup = (group: any) => () => {
-        this.setState({ mouseOverGroup: group })
+        const { selectionState } = this.props
+        selectionState.updateGroup(group)
         this.setMouseOverGroup = this.setMouseOverGroup.bind(this)
     }
 
 
     public render() {
-        const { width, height } = this.props
-        const { labels, mouseOverGroup, matrix } = this.state
+        const { width, height, selectionState } = this.props
+        const { selectedGroup } = selectionState
+        const { labels, matrix } = this.state
 
         if (matrix && matrix.length > 1) {
             this.chord = {
@@ -74,8 +72,11 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
             const { arc, chords, color, labelColors, ribbon, innerRadius } = this.chord
 
             return (
-                <svg width={width} height={height} className='chord' onMouseOut={this.setMouseOverGroup(null)} style={{ overflow: 'visible' }}>
-                    <g transform={`translate(${width/2},${height/2})`}>
+                <svg width={width} height={height} className='chord' style={{ overflow: 'visible' }}>
+                    <g
+                        transform={`translate(${width/2},${height/2})`}
+                        onMouseOut={this.setMouseOverGroup(null)}
+                    >
                         <ChordGroups
                             id={'chordGroups'}
                             chords={chords}
@@ -89,8 +90,9 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
                         <ChordRibbons
                             chords={chords}
                             color={color}
-                            mouseOverGroup={mouseOverGroup}
+                            mouseOverGroup={selectedGroup}
                             ribbon={ribbon}
+                            innerRadius={innerRadius}
                         />
                     </g>
                 </svg>

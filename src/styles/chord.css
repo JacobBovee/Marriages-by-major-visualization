@@ -1,3 +1,7 @@
 svg, path, text {
     cursor: pointer;
 }
+
+circle {
+    fill: none;
+}

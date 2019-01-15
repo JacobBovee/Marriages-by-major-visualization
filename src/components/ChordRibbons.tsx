@@ -8,6 +8,7 @@ interface IProps {
     color: any
     ribbon: any
     mouseOverGroup: any
+    innerRadius: number
 }
 
 interface IState {
@@ -23,15 +24,11 @@ export default class ChordRibbons extends React.Component<IProps, IState> {
         y: null,
     }
 
-    constructor(props: IProps) {
-        super(props)
-    }
-
-    public shouldDisplay = (mouseOverGroup: any, chordSourceIndex: number, chordTargetIndex: any) => {
+    public shouldDisplay = (mouseOverGroup: any, chordSourceIndex: number, chordTargetIndex: number) => {
         const { selectedRibbon } = this.state
 
         if (selectedRibbon === null) {
-            return isRibbonHidden(mouseOverGroup, chordSourceIndex, chordTargetIndex) ? 'none': 'block'
+            return isRibbonHidden(mouseOverGroup, chordSourceIndex, chordTargetIndex) ? 'none' : 'block'
         }
         else if (selectedRibbon[0] === chordSourceIndex && selectedRibbon[1] === chordTargetIndex) {
             return 'block'
@@ -51,7 +48,6 @@ export default class ChordRibbons extends React.Component<IProps, IState> {
     }
 
     public updatePopover = (e: React.MouseEvent, open: boolean) => {
-        console.log(e)
         if (open) {
             this.setState({
                 x: e.clientX,
@@ -67,7 +63,7 @@ export default class ChordRibbons extends React.Component<IProps, IState> {
     }
 
     public render() {
-        const { chords, color, mouseOverGroup, ribbon } = this.props
+        const { chords, color, innerRadius, mouseOverGroup, ribbon } = this.props
         const { x, y } = this.state
 
         return (
@@ -76,6 +72,9 @@ export default class ChordRibbons extends React.Component<IProps, IState> {
                 fillOpacity='0.8'
             >
                 <Popover x={x} y={y} />
+                <circle
+                    r={innerRadius}
+                />
                 {chords.map((chord: any, chordIndex: number) => (
                     <path
                         onMouseOver={this.mouseOverRibbon([chord.source.index, chord.target.index])}

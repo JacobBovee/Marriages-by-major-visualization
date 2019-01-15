@@ -5,6 +5,7 @@ import Controls from '../components/Controls'
 import DataContainer from '../components/DataContainer'
 import MajorSelection from '../components/MajorSelection'
 import NlpField from '../components/NlpField'
+import SelectionState from '../state/SelectionState'
 import '../styles/app.css'
 import DataUtils from '../utils/DataUtils'
 
@@ -40,12 +41,16 @@ class App extends React.Component {
         <div className="App">
           <div className='controls'>
             <Controls />
-            <MajorSelection majors={majors} />
+            <MajorSelection
+              majors={majors}
+              selectionState={SelectionState}
+            />
           </div>
           <div className='visualization'>
             <NlpField />
             <DataContainer
               data={data}
+              selectionState={SelectionState}
             />
           </div>
         </div>

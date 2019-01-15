@@ -29,7 +29,7 @@ export default class ChordGroups extends React.Component<IProps> {
                     >
                         <path
                             id={`${id}-group${groupIndex}`}
-                            fill={`${color(groupIndex)}`}
+                            fill={`${rgb(color(groupIndex)).darker()}`}
                             stroke={`${rgb(color(groupIndex)).brighter()}`}
                             d={arc(group)}
                         />
