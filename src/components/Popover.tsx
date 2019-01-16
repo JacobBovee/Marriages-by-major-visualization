@@ -3,6 +3,9 @@ import '../styles/popover.css'
 import Portal from './Portal'
 
 interface IProps {
+    listItems: object
+    listView: boolean
+    title: string
     x: number | null
     y: number | null
 }
@@ -10,30 +13,30 @@ interface IProps {
 export default class Popover extends React.Component<IProps> {
 
     public render () {
-        const { x, y } = this.props
+        const { listItems, listView, title, x, y } = this.props
         
         return (
             <Portal portalId={'popoverPortal'}>
                 <div
-                    className='popover-wrapper'
                     style={{
                         display: (!!x && !!y) ? 'block' : 'none',
-                        left: !!x ? x + 20 : 0,
+                        left: !!x ? x - 40 : 0,
                         position: 'fixed',
-                        top: !!y ? y - 80 : 0,
+                        top: !!y ? y - 240 : 0,
                     }}
                 >
                     <div
                         className={'popover'}
                     >
-                        Popover
+                        <h6>{ title }</h6>
+                        {listView && listItems &&
+                            <ul className='listView'>
+                                {Object.keys(listItems).map((key: string, i: number) => 
+                                    <li key={i}>{key.charAt(0).toUpperCase() + key.substr(1)}: {listItems[key]}</li>
+                                )}
+                            </ul>
+                        }
                     </div>
-                    <svg
-                        height={64}
-                        width={64}
-                    >
-                        <polygon points="250,60 100,400 400,400" className={'triangle'} />
-                    </svg>
                 </div>
             </Portal>
         )

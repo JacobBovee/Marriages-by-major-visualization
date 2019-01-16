@@ -19,10 +19,15 @@ export default class MajorSelection extends React.Component<IProps> {
         selectionState.updateGroup(group)
         this.setMouseOverGroup = this.setMouseOverGroup.bind(this)
     }
+
+    public pushGroupState = (group: any) => () => {
+        this.props.selectionState.updateClickSelectedGroup(group)
+        this.pushGroupState = this.pushGroupState.bind(this)
+    }
     
     public render() {
-        const { majors } = this.props
-                
+        const { majors, selectionState } = this.props
+
         return (
             <div className='major-selection'>
                 <ul>
@@ -31,6 +36,10 @@ export default class MajorSelection extends React.Component<IProps> {
                             key={i}
                             onMouseOver={this.setMouseOverGroup(i)}
                             onMouseOut={this.setMouseOverGroup(null)}
+                            onClick={this.pushGroupState(i)}
+                            style={{
+                                backgroundColor: selectionState.isClickSelected(i) ? 'rgb(72, 134, 188)' : 'transparent',
+                            }}
                         >
                             {major}
                         </li>

@@ -1,4 +1,5 @@
 import { rgb } from 'd3-color'
+import { observer } from 'mobx-react'
 import * as React from 'react'
 
 interface IProps {
@@ -10,12 +11,19 @@ interface IProps {
     groupLabels: any
     innerRadius: number
     labelColors: any
+    selectionState: any
 }
 
+@observer
 export default class ChordGroups extends React.Component<IProps> {
     public getAngle = (group: any) => ((group.startAngle + group.endAngle) / 2)
 
     public getAnchor = (group: any) => ((group.startAngle + group.endAngle) / 2 > Math.PI ? "end" : undefined)
+
+    public pushGroupState = (group: any) => () => {
+        this.props.selectionState.updateClickSelectedGroup(group)
+        this.pushGroupState = this.pushGroupState.bind(this)
+    }
 
     public render() {
         const { arc, chords, color, id, setMouseOverGroup, labelColors, groupLabels, innerRadius } = this.props
@@ -26,6 +34,7 @@ export default class ChordGroups extends React.Component<IProps> {
                     <g
                         key={groupIndex}
                         onMouseOver={setMouseOverGroup(group.index)}
+                        onClick={this.pushGroupState(group.index)}
                     >
                         <path
                             id={`${id}-group${groupIndex}`}

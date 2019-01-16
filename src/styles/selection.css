@@ -23,3 +23,7 @@
     cursor: pointer;
     letter-spacing: 1px;
 }
+
+ul li:hover {
+    background-color: rgb(72, 134, 188) !important;
+}

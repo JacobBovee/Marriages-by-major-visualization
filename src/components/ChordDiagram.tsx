@@ -86,10 +86,12 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
                             groupLabels={ labels }
                             labelColors={ labelColors }
                             innerRadius={innerRadius}
+                            selectionState={selectionState}
                         />
                         <ChordRibbons
                             chords={chords}
                             color={color}
+                            data={this.props.data}
                             mouseOverGroup={selectedGroup}
                             ribbon={ribbon}
                             innerRadius={innerRadius}

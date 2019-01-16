@@ -6,6 +6,7 @@ import Popover from './Popover'
 interface IProps {
     chords: any
     color: any
+    data: any
     ribbon: any
     mouseOverGroup: any
     innerRadius: number
@@ -26,7 +27,7 @@ export default class ChordRibbons extends React.Component<IProps, IState> {
 
     public shouldDisplay = (mouseOverGroup: any, chordSourceIndex: number, chordTargetIndex: number) => {
         const { selectedRibbon } = this.state
-
+        
         if (selectedRibbon === null) {
             return isRibbonHidden(mouseOverGroup, chordSourceIndex, chordTargetIndex) ? 'none' : 'block'
         }
@@ -62,16 +63,47 @@ export default class ChordRibbons extends React.Component<IProps, IState> {
         }
     }
 
+    public calculateListItems = () => {
+        const { data } = this.props
+        const { selectedRibbon } = this.state
+
+        const computePercent = (occurences: string, total: string) => {
+            return (Math.round((parseInt(occurences, 10) / parseInt(total, 10)) * 100 * 100) / 100)
+        }
+
+        if (selectedRibbon !== null) {
+            const occurences = data[selectedRibbon[0]][data.columns[selectedRibbon[1]+1]]
+            const secondOccurence = data[selectedRibbon[1]][data.columns[selectedRibbon[0]+1]]
+
+            return {
+                occurences,
+                [`% of ${data.columns[selectedRibbon[0]+1]}`]: `${computePercent(occurences, data[selectedRibbon[0]].Total)}%`,
+                [`% of ${data.columns[selectedRibbon[1]+1]}`]: `${computePercent(secondOccurence, data[selectedRibbon[1]].Total)}%`,
+            }
+        }
+        return {}
+    }
+
     public render() {
-        const { chords, color, innerRadius, mouseOverGroup, ribbon } = this.props
-        const { x, y } = this.state
+        const { chords, color, data, innerRadius, mouseOverGroup, ribbon } = this.props
+        const { selectedRibbon, x, y } = this.state
 
         return (
             <g
                 className='ribbons'
                 fillOpacity='0.8'
             >
-                <Popover x={x} y={y} />
+                <Popover
+                    x={x}
+                    y={y}
+                    title={selectedRibbon ?
+                        `${data.columns[selectedRibbon[0]+1]} + ${data.columns[selectedRibbon[1]+1]}`
+                        :
+                        ''
+                    }
+                    listView={true}
+                    listItems={this.calculateListItems()}
+                />
                 <circle
                     r={innerRadius}
                 />
