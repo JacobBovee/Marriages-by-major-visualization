@@ -1,7 +1,6 @@
 svg, path, text {
-    cursor: pointer;
+    cursor: default;
 }
-
 circle {
     fill: none;
 }

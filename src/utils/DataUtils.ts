@@ -56,6 +56,7 @@ class DataUtils {
             chords,
             color,
             innerRadius,
+            outerRadius,
             ribbon: d3Ribbon,
         }       
     }

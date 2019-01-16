@@ -1,2 +1,2 @@
 declare module 'd3';
-declare module 'SelectionState'
+declare module 'react-mt-svg-lines';

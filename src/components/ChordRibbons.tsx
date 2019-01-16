@@ -9,7 +9,6 @@ interface IProps {
     data: any
     ribbon: any
     mouseOverGroup: any
-    innerRadius: number
 }
 
 interface IState {
@@ -85,7 +84,7 @@ export default class ChordRibbons extends React.Component<IProps, IState> {
     }
 
     public render() {
-        const { chords, color, data, innerRadius, mouseOverGroup, ribbon } = this.props
+        const { chords, color, data, mouseOverGroup, ribbon } = this.props
         const { selectedRibbon, x, y } = this.state
 
         return (
@@ -103,9 +102,6 @@ export default class ChordRibbons extends React.Component<IProps, IState> {
                     }
                     listView={true}
                     listItems={this.calculateListItems()}
-                />
-                <circle
-                    r={innerRadius}
                 />
                 {chords.map((chord: any, chordIndex: number) => (
                     <path

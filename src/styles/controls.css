@@ -6,7 +6,38 @@
     justify-content: center;
 }
 
+.information {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-space {
+    display: flex;
+    flex: 2;
+}
+.inner-controls {
+    display: flex;
+    flex: 4;
+}
+
 h1 {
-    padding: 0;
+    padding: 10px;
     color: rgba(255, 255, 255, 0.7);
+}
+
+.story {
+    font-size: 19px;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 1px;
+    flex: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 95%
+}
+.story p {
+    padding: 20px;
+    background-color: #1E262C;
 }

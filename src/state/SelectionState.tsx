@@ -5,7 +5,7 @@ class SelectionState {
     @observable public selectedRibbon: any
     @observable public clickSelectedGroups: number[] = []
 
-    public updateGroup = (group: number) => {
+    public updateGroup = (group: number | null) => {
         this.selectedGroup = group
     }
 
