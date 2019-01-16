@@ -1,13 +1,13 @@
 import { DSVRowArray } from 'd3'
 
 import * as React from 'react'
-import Controls from '../components/Controls'
-import DataContainer from '../components/DataContainer'
-import MajorSelection from '../components/MajorSelection'
-import NlpField from '../components/NlpField'
-import SelectionState from '../state/SelectionState'
-import '../styles/app.css'
-import DataUtils from '../utils/DataUtils'
+import Controls from './components/Controls'
+import DataContainer from './components/DataContainer'
+import MajorSelection from './components/MajorSelection'
+import NlpField from './components/NlpField'
+import SelectionState from './state/SelectionState'
+import './styles/app.css'
+import DataUtils from './utils/DataUtils'
 
 interface IState {
   majors: string[]

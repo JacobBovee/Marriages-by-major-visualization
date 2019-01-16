@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import * as React from 'react'
+import Vivus from 'vivus'
 import '../styles/chord.css'
 import DataUtils from '../utils/DataUtils'
 import ChordGroups from './ChordGroups'
@@ -22,7 +23,6 @@ interface IChord {
     color: any
     chords: any
     innerRadius: number
-    outerRadius: number
     labelColors: any
     ribbon: any
 }
@@ -40,7 +40,6 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
         color: null,
         innerRadius: 0,
         labelColors: ['#fff'],
-        outerRadius: 0,
         ribbon: null,
     }
 
@@ -48,17 +47,23 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
         const { data } = this.props
         const matrix = DataUtils.generateMatrix(data)
 
+        this.animateSVG()
+
         this.setState({
             labels: data.columns.slice(1, -1),
             matrix,
         })
     }
 
-    public over = () => {
-        console.log('over')
+    public componentDidUpdate() {
+        this.animateSVG()
     }
-    public out = () => {
-        console.log('out')
+
+    public animateSVG = () => {
+        if (document.getElementById('chordDiagram')) {
+            const vChordDiagram = new Vivus('chordDiagram', { duration: 75 })
+            vChordDiagram.play(1)
+        }
     }
 
     public setMouseOverGroup = (group: any) => () => {
@@ -78,19 +83,19 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
                 ...this.chord,
                 ...DataUtils.getChord(this.props.width, this.props.height, matrix)
             }
-            const { arc, chords, color, labelColors, outerRadius, ribbon, innerRadius } = this.chord
+            const { arc, chords, color, labelColors, ribbon, innerRadius } = this.chord
 
             return (
                 <svg
                     width={width}
                     height={height}
                     className='chord'
+                    id='chordDiagram'
                     style={{ overflow: 'visible' }}
                     onMouseLeave={this.setMouseOverGroup(null)}
                 >
                     <g
                         transform={`translate(${width/2},${height/2})`} 
-                        r={outerRadius}
                     >
                         <ChordGroups
                             id={'chordGroups'}
@@ -102,7 +107,6 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
                             labelColors={ labelColors }
                             selectionState={selectionState}
                             innerRadius={innerRadius}
-                            outerRadius={outerRadius}
                         />
                         <ChordRibbons
                             chords={chords}

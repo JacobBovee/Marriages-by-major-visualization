@@ -11,7 +11,6 @@ interface IProps {
     groupLabels: any
     labelColors: any
     innerRadius: number
-    outerRadius: number
     selectionState: any
 }
 
@@ -27,13 +26,10 @@ export default class ChordGroups extends React.Component<IProps> {
     }
 
     public render() {
-        const { arc, chords, color, id, setMouseOverGroup, labelColors, groupLabels, innerRadius, outerRadius } = this.props
+        const { arc, chords, color, id, setMouseOverGroup, labelColors, groupLabels, innerRadius } = this.props
 
         return (
             <g className='groups'>
-                <circle
-                    r={outerRadius}
-                />
                 {chords.groups.map((group: any, groupIndex: number) =>
                     <g
                         key={groupIndex}
@@ -45,6 +41,8 @@ export default class ChordGroups extends React.Component<IProps> {
                             fill={`${rgb(color(groupIndex)).darker()}`}
                             stroke={`${rgb(color(groupIndex)).brighter()}`}
                             d={arc(group)}
+                            data-start='0'
+                            data-duration='3'
                         />
                         <text
                             dy={'.25em'}

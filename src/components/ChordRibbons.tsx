@@ -114,6 +114,8 @@ export default class ChordRibbons extends React.Component<IProps, IState> {
                         }}
                         stroke={`${rgb(color(chord.target.index)).brighter()}`}
                         d={`${ribbon({source: chord.source, target: chord.target})}`}
+                        data-start='0'
+                        data-duration='3'
                     />
                 ))}
             </g>

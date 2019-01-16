@@ -4,6 +4,9 @@
     background-color:  rgb(35, 43, 51);
     overflow-y: scroll;
 }
+.major-selection::-webkit-scrollbar { 
+    display: none; 
+}
 .major-selection ul {
     list-style: none;
     padding: 0;

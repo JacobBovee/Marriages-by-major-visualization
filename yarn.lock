@@ -315,6 +315,11 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/vivus@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@types/vivus/-/vivus-0.4.0.tgz#902f718f896fd1d8bdc337f7888bdc926dc9fffb"
+  integrity sha1-kC9xj4lv0di9wzf3iIvckm3J//s=
+
 abab@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"
@@ -8946,6 +8951,11 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+vivus@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/vivus/-/vivus-0.4.4.tgz#34363eb833d5f6fe0b63a92cfccff14ad099ba44"
+  integrity sha1-NDY+uDPV9v4LY6ks/M/xStCZukQ=
 
 vm-browserify@0.0.4:
   version "0.0.4"
