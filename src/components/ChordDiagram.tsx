@@ -29,6 +29,7 @@ interface IChord {
 
 @observer
 export default class ChordDiagram extends React.Component<IProps, IState> {
+    public vChordDiagram: any
     public state = {
         labels: [],
         matrix: [[]],
@@ -59,19 +60,26 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
         this.animateSVG()
     }
 
+    public svgMouseLeave = () => {
+        this.vChordDiagram.stop()
+        this.setMouseOverGroup(null)()
+    }
+
     public animateSVG = () => {
         if (document.getElementById('chordDiagram')) {
-            const vChordDiagram = new Vivus('chordDiagram', { duration: 75 })
-            vChordDiagram.play(1)
+            this.vChordDiagram = new Vivus('chordDiagram', {
+                animTimingFunction: Vivus.EASE,
+                duration: 75,
+            })
         }
     }
 
     public setMouseOverGroup = (group: any) => () => {
         const { selectionState } = this.props
         selectionState.updateGroup(group)
+
         this.setMouseOverGroup = this.setMouseOverGroup.bind(this)
     }
-
 
     public render() {
         const { width, height, selectionState } = this.props
@@ -92,7 +100,7 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
                     className='chord'
                     id='chordDiagram'
                     style={{ overflow: 'visible' }}
-                    onMouseLeave={this.setMouseOverGroup(null)}
+                    onMouseLeave={this.svgMouseLeave}
                 >
                     <g
                         transform={`translate(${width/2},${height/2})`} 

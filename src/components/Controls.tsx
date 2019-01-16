@@ -14,7 +14,7 @@ export default class Controls extends React.Component {
                         <p>The data represented is taken from the 2009 - 2016 American Community Survey representing
                         couples in which the wife married for the first time only with a sample size of 27,068.
                         Explore the data by moving your mouse over groups or individual ribbons. To view individual groups
-                        represented differently click on one more more of the groups.</p>
+                        represented differently click on one or more of the groups.</p>
                     </div>
                 </div>
             </div>
