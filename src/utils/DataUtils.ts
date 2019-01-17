@@ -106,6 +106,10 @@ class DataUtils {
 
         return {
             axesProps,
+            bottomMargin: margins.bottom,
+            colorScale: scaleOrdinal(schemeDark2),
+            xScale,
+            yScale,
         }
     }
 }

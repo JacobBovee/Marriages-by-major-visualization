@@ -1,6 +1,8 @@
+import { observer } from 'mobx-react'
 import * as React from 'react'
 import DataUtils from '../../utils/DataUtils'
 import Axes from './Axes'
+import Bars from './Bars'
 
 interface IProps {
     width: number
@@ -9,27 +11,64 @@ interface IProps {
     selectionState: any
 }
 
-interface IBarChart {
-    axesProps: any
+interface IState {
+    barChart: IBarChart | null
+    clickSelectedGroup: number | null
 }
 
-export default class BarChart extends React.Component<IProps> {
-    public barChart: IBarChart = {
-        axesProps: null,
+interface IBarChart {
+    axesProps: any
+    xScale: any
+    yScale: any
+    bottomMargin: number
+    colorScale: any
+}
+
+
+@observer
+export default class BarChart extends React.Component<IProps, IState> {
+    public state: IState = {
+        barChart: null,
+        clickSelectedGroup: null,
     }
 
+    public barData: any
+
     public componentDidMount() {
+        this.buildChart()
+    }
+
+    public componentDidUpdate() {
+        if (this.state.clickSelectedGroup !== this.props.selectionState.clickSelectedGroup) {
+            this.buildChart()
+        }
+    }
+
+    public buildChart = () => {
         const { width, height, data, selectionState } = this.props
-        this.barChart = DataUtils.computeBarChart(height, width, DataUtils.generateBarData(data, selectionState.clickSelectedGroups[0]))
+        this.barData = DataUtils.generateBarData(data, selectionState.clickSelectedGroup)
+        this.setState({ barChart: DataUtils.computeBarChart(height, width, this.barData), clickSelectedGroup: selectionState.clickSelectedGroup })
     }
 
     public render() {
-        const { height, width } = this.props
-        const { axesProps } = this.barChart
-        if (this.barChart.axesProps !== null) {
+        const { height, width, selectionState } = this.props
+        const { barChart } = this.state
+
+        if (barChart !== null && selectionState.clickSelectedGroup !== null) {
+            const { axesProps, bottomMargin, colorScale, xScale, yScale, } = barChart
+
             return (
                 <svg width={width} height={height}>
                     <Axes xProps={axesProps.x} yProps={axesProps.y}/>
+                    <Bars
+                        width={width}
+                        height={height}
+                        xScale={xScale}
+                        yScale={yScale}
+                        data={this.barData}
+                        bottomMargin={bottomMargin}
+                        colorScale={colorScale}
+                    />
                 </svg>
             )
         }

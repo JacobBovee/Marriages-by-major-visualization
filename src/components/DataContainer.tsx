@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react'
 import * as React from 'react'
 import '../styles/datacontainer.css'
 import BarChart from './BarChart'
@@ -13,6 +14,7 @@ interface IState {
     height: number
 }
 
+@observer
 export default class DataContainer extends React.Component<IProps, IState> {
     public dataContainer: any
     public state = {
@@ -45,14 +47,14 @@ export default class DataContainer extends React.Component<IProps, IState> {
 
     public render() {
         const { data, selectionState } = this.props
-        const { clickSelectedGroups } = selectionState
+        const { clickSelectedGroup } = selectionState
         const { height, width } = this.state
         
         return (
             <div className={'data-container'}
                 id={'dataContainer'}
             >
-            {clickSelectedGroups.length !== 0 ?
+            {clickSelectedGroup !== null ?
                 <BarChart
                     height={height}
                     width={width}

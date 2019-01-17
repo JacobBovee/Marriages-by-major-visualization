@@ -3,7 +3,7 @@ import { observable } from 'mobx'
 class SelectionState {
     @observable public selectedGroup: any = null
     @observable public selectedRibbon: any
-    @observable public clickSelectedGroups: number[] = [3]
+    @observable public clickSelectedGroup: number | null = null
 
     public updateGroup = (group: number | null) => {
         this.selectedGroup = group
@@ -14,14 +14,11 @@ class SelectionState {
     }
 
     public updateClickSelectedGroup = (group: number) => {
-        if (this.clickSelectedGroups.length >= 2) {
-            this.clickSelectedGroups.pop()
-        }
-        this.clickSelectedGroups.unshift(group)
+        this.clickSelectedGroup = group
     } 
 
     public isClickSelected = (group: number) => {
-        if (this.clickSelectedGroups.length > 0 && this.clickSelectedGroups.indexOf(group) !== -1) {
+        if (this.clickSelectedGroup && this.clickSelectedGroup === group) {
             return true
         }
         return false
