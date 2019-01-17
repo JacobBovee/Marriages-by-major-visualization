@@ -3,7 +3,7 @@ import { observable } from 'mobx'
 class SelectionState {
     @observable public selectedGroup: any = null
     @observable public selectedRibbon: any
-    @observable public clickSelectedGroups: number[] = []
+    @observable public clickSelectedGroups: number[] = [3]
 
     public updateGroup = (group: number | null) => {
         this.selectedGroup = group

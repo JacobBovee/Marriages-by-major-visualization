@@ -1,7 +1,7 @@
 import { descending } from 'd3-array'
 import { chord, ribbon } from 'd3-chord'
 import { csvParse } from 'd3-dsv'
-import { scaleOrdinal } from 'd3-scale'
+import { scaleBand, scaleLinear, scaleOrdinal } from 'd3-scale'
 import { schemeDark2 } from 'd3-scale-chromatic'
 import { arc } from 'd3-shape'
 
@@ -30,7 +30,7 @@ class DataUtils {
         return matrix
     }
 
-    public getChord(width: number, height: number, matrix: number[][]) {
+    public getChord = (width: number, height: number, matrix: number[][]) => {
         const outerRadius = Math.min(width, height) * 0.5 - 40
         const innerRadius = outerRadius - 30
         
@@ -58,6 +58,55 @@ class DataUtils {
             innerRadius,
             ribbon: d3Ribbon,
         }       
+    }
+
+    public generateBarData = (data: any, selectedGroup: number) => {
+        const groupData = data[selectedGroup]
+        delete groupData.Total
+        delete groupData.major
+        
+        const barData = Object.keys(groupData).map((key: string, i: number) => {
+            return { 
+                title: key,
+                value: parseInt(groupData[key], 10),
+            }
+        })
+
+        return barData
+    }
+
+    public computeBarChart = (width: number, height: number, data: any) => {
+        const margins = { bottom: 100, left: 80, right: 10, top: 50 }
+
+        const maxValue = Math.max(...data.map((d: any) => d.value))
+        
+        const xScale = scaleBand()
+            .padding(0.5)
+            .domain(data.map((d: any) => d.title))
+            .range([margins.left, width - margins.right])
+        
+        const yScale = scaleLinear()
+            .domain([0, maxValue])
+            .range([height - margins.bottom, margins.top])
+
+        const axesProps = {
+            x: {
+                orient: 'Bottom', 
+                scale: xScale,
+                tickSize: height - margins.top - margins.bottom,
+                translate: `translate(0, ${height - margins.bottom})`,
+            },
+            y: {
+                orient: 'Left',
+                scale: yScale,
+                tickSize: width - margins.left - margins.right,
+                translate: `translate(${margins.left}, 0)`,
+            },
+        }
+
+        return {
+            axesProps,
+        }
     }
 }
 

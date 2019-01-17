@@ -87,10 +87,13 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
         const { labels, matrix } = this.state
 
         if (matrix && matrix.length > 1) {
-            this.chord = {
-                ...this.chord,
-                ...DataUtils.getChord(this.props.width, this.props.height, matrix)
+            if (this.chord.arc === null && this.chord.chords === null) {
+                this.chord = {
+                    ...this.chord,
+                    ...DataUtils.getChord(this.props.width, this.props.height, matrix)
+                }
             }
+            
             const { arc, chords, color, labelColors, ribbon, innerRadius } = this.chord
 
             return (

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import '../styles/datacontainer.css'
+import BarChart from './BarChart'
 import ChordDiagram from './ChordDiagram'
 
 interface IProps {
@@ -36,6 +37,7 @@ export default class DataContainer extends React.Component<IProps, IState> {
     }
 
     public componentDidMount() {
+        this.setWidthHeight()
         window.addEventListener('resize', () => {
             setTimeout(this.setWidthHeight, 500)
         })
@@ -43,18 +45,28 @@ export default class DataContainer extends React.Component<IProps, IState> {
 
     public render() {
         const { data, selectionState } = this.props
+        const { clickSelectedGroups } = selectionState
         const { height, width } = this.state
         
         return (
             <div className={'data-container'}
                 id={'dataContainer'}
             >
+            {clickSelectedGroups.length !== 0 ?
+                <BarChart
+                    height={height}
+                    width={width}
+                    data={data}
+                    selectionState={selectionState}
+                />
+                :
                 <ChordDiagram
                     height={height}
                     width={width}
                     data={data}
                     selectionState={selectionState}
                 />
+            }
             </div>
         )
     }
