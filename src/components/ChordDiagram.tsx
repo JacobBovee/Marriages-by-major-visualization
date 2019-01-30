@@ -44,20 +44,21 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
         ribbon: null,
     }
 
-    public componentDidMount() {
+    public componentWillMount() {
         const { data } = this.props
         const matrix = DataUtils.generateMatrix(data)
-
-        this.animateSVG()
 
         this.setState({
             labels: data.columns.slice(1, -1),
             matrix,
         })
+        this.animateSVG()
+        this.computeChord()
     }
 
     public componentDidUpdate() {
         this.animateSVG()
+        this.computeChord()
     }
 
     public svgMouseLeave = () => {
@@ -81,19 +82,26 @@ export default class ChordDiagram extends React.Component<IProps, IState> {
         this.setMouseOverGroup = this.setMouseOverGroup.bind(this)
     }
 
+
+    public componentWillReceiveProps(oldProps: IProps, newProps:IProps) {
+        if (oldProps !== newProps) {
+            this.computeChord()
+        }
+    }
+
+    public computeChord = () => {
+        this.chord = {
+            ...this.chord,
+            ...DataUtils.getChord(this.props.width, this.props.height, this.state.matrix)
+        }
+    }
+
     public render() {
         const { width, height, selectionState } = this.props
         const { selectedGroup } = selectionState
         const { labels, matrix } = this.state
 
         if (matrix && matrix.length > 1) {
-            if (this.chord.arc === null && this.chord.chords === null) {
-                this.chord = {
-                    ...this.chord,
-                    ...DataUtils.getChord(this.props.width, this.props.height, matrix)
-                }
-            }
-            
             const { arc, chords, color, labelColors, ribbon, innerRadius } = this.chord
 
             return (

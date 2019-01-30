@@ -76,12 +76,12 @@ class DataUtils {
     }
 
     public computeBarChart = (width: number, height: number, data: any) => {
-        const margins = { bottom: 100, left: 80, right: 10, top: 50 }
+        const margins = { bottom: 70, left: 120, right: 20, top: 25 }
 
         const maxValue = Math.max(...data.map((d: any) => d.value))
         
         const xScale = scaleBand()
-            .padding(0.5)
+            .padding(0.9)
             .domain(data.map((d: any) => d.title))
             .range([margins.left, width - margins.right])
         
@@ -94,12 +94,12 @@ class DataUtils {
                 orient: 'Bottom', 
                 scale: xScale,
                 tickSize: height - margins.top - margins.bottom,
-                translate: `translate(0, ${height - margins.bottom})`,
+                translate: `translate(0, ${width - margins.bottom})`,
             },
             y: {
                 orient: 'Left',
                 scale: yScale,
-                tickSize: width - margins.left - margins.right,
+                tickSize: height - margins.left - margins.right,
                 translate: `translate(${margins.left}, 0)`,
             },
         }

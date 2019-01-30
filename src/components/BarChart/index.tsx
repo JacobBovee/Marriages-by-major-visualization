@@ -38,16 +38,19 @@ export default class BarChart extends React.Component<IProps, IState> {
         this.buildChart()
     }
 
-    public componentDidUpdate() {
-        if (this.state.clickSelectedGroup !== this.props.selectionState.clickSelectedGroup) {
-            this.buildChart()
-        }
-    }
-
     public buildChart = () => {
         const { width, height, data, selectionState } = this.props
         this.barData = DataUtils.generateBarData(data, selectionState.clickSelectedGroup)
-        this.setState({ barChart: DataUtils.computeBarChart(height, width, this.barData), clickSelectedGroup: selectionState.clickSelectedGroup })
+        this.setState({
+            barChart: DataUtils.computeBarChart(height, width, this.barData),
+            clickSelectedGroup: selectionState.clickSelectedGroup,
+        })
+    }
+
+    public componentWillReceiveProps(oldProps: IProps, newProps:IProps) {
+        if (oldProps !== newProps) {
+            this.buildChart()
+        }
     }
 
     public render() {
@@ -58,17 +61,19 @@ export default class BarChart extends React.Component<IProps, IState> {
             const { axesProps, bottomMargin, colorScale, xScale, yScale, } = barChart
 
             return (
-                <svg width={width} height={height}>
-                    <Axes xProps={axesProps.x} yProps={axesProps.y}/>
-                    <Bars
-                        width={width}
-                        height={height}
-                        xScale={xScale}
-                        yScale={yScale}
-                        data={this.barData}
-                        bottomMargin={bottomMargin}
-                        colorScale={colorScale}
-                    />
+                <svg width={width} height={height} style={{ overflow: 'visible' }}>
+                    <g>
+                        <Axes xProps={axesProps.x} yProps={axesProps.y}/>
+                        <Bars
+                            width={width}
+                            height={height}
+                            xScale={xScale}
+                            yScale={yScale}
+                            data={this.barData}
+                            bottomMargin={bottomMargin}
+                            colorScale={colorScale}
+                        />
+                    </g>
                 </svg>
             )
         }
